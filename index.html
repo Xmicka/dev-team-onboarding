@@ -96,6 +96,7 @@ main{position:relative;z-index:10}
 /* ---------- HERO ---------- */
 #hero{align-items:center;text-align:center;justify-content:center}
 #hero .h-mega{font-style:normal;position:relative}
+#hero-title .line{display:inline-block}
 #hero .sub{max-width:620px;margin:26px auto 0;color:#c3c7d4;font-size:clamp(.95rem,1.4vw,1.15rem);line-height:1.75;font-weight:300}
 #hero .sub .serif{color:#fff}
 .hero-tags{display:flex;gap:10px;justify-content:center;margin-top:32px;flex-wrap:wrap}
@@ -501,7 +502,7 @@ function scramble(el){
 
 /* ===== split hero into chars ===== */
 function splitChars(){
-  document.querySelectorAll('#hero-title .line').forEach(line=>{
+  document.querySelectorAll('#hero-title .line:not(.grad-text)').forEach(line=>{
     const txt=line.textContent;line.textContent='';
     [...txt].forEach(ch=>{const s=document.createElement('span');s.className='char';s.textContent=ch===' '?' ':ch;line.appendChild(s);});
   });
@@ -543,7 +544,8 @@ function start(){
   // hero intro
   const tl=gsap.timeline({defaults:{ease:'power4.out'}});
   tl.from('#hero .kicker',{opacity:0,y:20,duration:.7})
-    .from('#hero-title .char',{opacity:0,yPercent:120,rotateX:-80,stagger:.03,duration:.9,transformOrigin:'50% 100%'},'-=.3')
+    .from('#hero-title .line:not(.grad-text) .char',{opacity:0,yPercent:120,rotateX:-80,stagger:.05,duration:.85,transformOrigin:'50% 100%'},'-=.3')
+    .from('#hero-title .grad-text',{opacity:0,yPercent:100,rotateX:-50,duration:1,ease:'power4.out',transformOrigin:'50% 100%'},'-=.5')
     .from('#hero-sub',{opacity:0,y:26,duration:.8},'-=.5')
     .from('#hero-tags .tag',{opacity:0,y:18,stagger:.07,duration:.6},'-=.5');
 
